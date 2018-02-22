@@ -1,8 +1,14 @@
 # FastStats
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fast_stats`. To experiment with that code, run `bin/console` for an interactive prompt.
+| Travis CI|
+|----------|
+| [![Build Status](https://travis-ci.org/kyle-rader/fast_stats.svg?branch=master)](https://travis-ci.org/kyle-rader/fast_stats) |
 
-TODO: Delete this and the text above, and describe your gem
+Welcome to FastStats!
+This gem is for computing stats in an efficient manner. Right now it just manages a collection of arithmetic and geometric means to help reduce the [data clump code smell](https://sourcemaking.com/refactoring/smells/data-clumps).
+
+To experiment with the gem, clone it, run `bundle install` and then `bin/console` for an interactive [pry](http://pryrepl.org/) session (A great Ruby REPL).
+
 
 ## Installation
 
@@ -22,7 +28,49 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The current main usage of `FastStats` is to track and build means while iterating over data sets.
+
+Example: Let's say you want to get some means for social media posts.
+
+You can track several metrics with `FastStats::Means`:
+
+```ruby
+# Say you have some PostFetcher that is an enumerator for your posts.
+means = FastStats::Means.new
+
+PostFetcher.each do |post|
+   # do stuff with post
+   means.add "likes", post["like_count"]
+   means.add "comments", post["share_count"]
+end
+
+means.summary
+# =>
+#{
+#   "foo_arithmetic"=>4.888888888888889,
+#   "foo_geometric"=>3.345423581422162,
+#   "bar_arithmetic"=>13.636363636363637,
+#   "bar_geometric"=>7.1824970648723765
+#}
+
+```
+
+You can track an individual metric with `FastStats::Mean`:
+
+```ruby
+mean = FastStats::Mean.new name: "foobar"
+10.times { |i| mean << i }  # or mean.add(i)
+
+puts mean.arithmetic
+# => 4.5
+puts mean.geometric
+# => 3.597297064377001
+puts mean.summary
+# => {
+#   "foobar_arithmetic"=>4.5,
+#   "foobar_geometric"=>3.597297064377001
+#   }
+```
 
 ## Development
 
