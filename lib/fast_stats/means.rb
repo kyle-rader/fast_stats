@@ -15,9 +15,9 @@ module FastStats
       mean_for(name) << val
     end
 
-    def summary
+    def summary(round: Mean::DEFAULT_ROUND)
       means.values.reduce({}) do |summary, mean|
-        summary.merge mean.summary
+        summary.merge mean.summary round: round
       end
     end
 

@@ -53,6 +53,16 @@ means.summary
 #   "bar_geometric"=>7.1824970648723765
 #}
 
+# You can also pass a round: value
+means.summary round: 2
+# =>
+#{
+#   "foo_arithmetic"=>4.89,
+#   "foo_geometric"=>3.35,
+#   "bar_arithmetic"=>13.64,
+#   "bar_geometric"=>7.18
+#}
+
 ```
 
 You can track an individual metric with `FastStats::Mean`:
@@ -61,11 +71,11 @@ You can track an individual metric with `FastStats::Mean`:
 mean = FastStats::Mean.new name: "foobar"
 10.times { |i| mean << i }  # or mean.add(i)
 
-puts mean.arithmetic
+puts mean.arithmetic # round: 2
 # => 4.5
-puts mean.geometric
+puts mean.geometric # round: 2
 # => 3.597297064377001
-puts mean.summary
+puts mean.summary # round: 2
 # => {
 #   "foobar_arithmetic"=>4.5,
 #   "foobar_geometric"=>3.597297064377001

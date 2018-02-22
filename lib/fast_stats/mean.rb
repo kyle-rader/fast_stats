@@ -5,6 +5,7 @@
 module FastStats
   class Mean
 
+    DEFAULT_ROUND = 15
     attr_reader :name, :sum, :log_sum, :n
 
     def initialize(name:)
@@ -24,20 +25,20 @@ module FastStats
 
     alias_method :<<, :add
 
-    def arithmetic
+    def arithmetic(round: DEFAULT_ROUND)
       return nil if n == 0
-      sum / n
+      (sum / n).round round
     end
 
-    def geometric
+    def geometric(round: DEFAULT_ROUND)
       return nil if n == 0
-      2 ** (log_sum / n)
+      (2 ** (log_sum / n)).round round
     end
 
-    def summary
+    def summary(round: DEFAULT_ROUND)
       {
-        "#{name}_arithmetic" => arithmetic,
-        "#{name}_geometric" => geometric,
+        "#{name}_arithmetic" => arithmetic(round: round),
+        "#{name}_geometric" => geometric(round: round),
       }
     end
 

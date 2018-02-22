@@ -42,7 +42,7 @@ RSpec.describe FastStats::Mean do
     let(:values) { [] }
     before { values.each { |val| subject << val } }
 
-    let(:mean) { subject.arithmetic }
+    let(:mean) { subject.arithmetic round: 2 }
 
     it 'returns nil before values are added' do
       expect(mean).to eq nil
@@ -68,7 +68,7 @@ RSpec.describe FastStats::Mean do
       let(:values) { numbers_with_zeros }
 
       it 'has expected mean' do
-        expect(mean).to eq 11.454545454545455
+        expect(mean).to eq 11.45
       end
     end
   end
@@ -78,7 +78,7 @@ RSpec.describe FastStats::Mean do
     let(:values) { [] }
     before { values.each { |val| subject << val } }
 
-    let(:mean) { subject.geometric }
+    let(:mean) { subject.geometric round: 2 }
 
     it 'return nil before values are added' do
       expect(mean).to eq nil
@@ -88,7 +88,7 @@ RSpec.describe FastStats::Mean do
       let(:values) { set1 }
 
       it 'Has expected mean' do
-        expect(mean).to eq 4.66670128104545
+        expect(mean).to eq 4.67
       end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe FastStats::Mean do
       let(:values) { big_numbers }
 
       it 'has expected mean' do
-        expect(mean).to eq 490923877958.43896
+        expect(mean).to eq 490923877958.44
       end
     end
 
@@ -104,7 +104,7 @@ RSpec.describe FastStats::Mean do
       let(:values) { numbers_with_zeros }
 
       it 'has expected mean' do
-        expect(mean).to eq 3.5267268158249334
+        expect(mean).to eq 3.53
       end
     end
   end
@@ -113,12 +113,12 @@ RSpec.describe FastStats::Mean do
     subject { described_class.new name: 'foo' }
     let(:values) { numbers_with_zeros }
     before { values.each { |val| subject << val } }
-    let(:summary) { subject.summary }
+    let(:summary) { subject.summary round: 2 }
 
     it 'Returns a summary with named means' do
       expect(summary).to eq({
-        "foo_arithmetic" => 11.454545454545455,
-        "foo_geometric" => 3.5267268158249334,
+        "foo_arithmetic" => 11.45,
+        "foo_geometric" => 3.53,
       })
     end
   end

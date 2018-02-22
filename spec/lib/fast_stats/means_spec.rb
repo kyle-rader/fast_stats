@@ -28,14 +28,14 @@ RSpec.describe FastStats::Means do
       baz.each { |val| subject.add "baz", val }
     end
 
-    let(:summary) { subject.summary }
+    let(:summary) { subject.summary round: 2 }
     let(:expected_summary) { {
       "foo_arithmetic" => 5.0,
-      "foo_geometric" => 3.6132573198349838,
+      "foo_geometric" => 3.61,
       "bar_arithmetic" => 14.0,
-      "bar_geometric" => 4.66670128104545,
-      "baz_arithmetic" => 11.454545454545455,
-      "baz_geometric" => 3.5267268158249334,
+      "bar_geometric" => 4.67,
+      "baz_arithmetic" => 11.45,
+      "baz_geometric" => 3.53,
     } }
 
     it 'Returns a summary with named means' do
