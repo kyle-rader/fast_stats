@@ -108,4 +108,18 @@ RSpec.describe FastStats::Mean do
       end
     end
   end
+
+  describe '#summary' do
+    subject { described_class.new name: 'foo' }
+    let(:values) { numbers_with_zeros }
+    before { values.each { |val| subject << val } }
+    let(:summary) { subject.summary }
+
+    it 'Return a summary with named means' do
+      expect(summary).to eq({
+        "foo_arithmetic" => 11.454545454545455,
+        "foo_geometric" => 3.5267268158249334,
+      })
+    end
+  end
 end

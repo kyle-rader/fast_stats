@@ -34,6 +34,13 @@ module FastStats
       2 ** (log_sum / n)
     end
 
+    def summary
+      {
+        "#{name}_arithmetic" => arithmetic,
+        "#{name}_geometric" => geometric,
+      }
+    end
+
     private
 
     def safe_log(val)
