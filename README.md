@@ -41,8 +41,7 @@ means = FastStats::Means.new
 #### Instance Methods
 
 **`add(metric_name, val) ->  value`**<br>
-    Adds the `val` to the `name` mean and returns the `n` (count) for that mean. <br>
-    Alias: `<<`.
+    Adds the `val` to the `name` mean and returns the new `n` (count) for that mean. <br>
 
 **`summary ->  hsh`** <br>
 **`summary round: value ->  hsh`** <br>
@@ -81,73 +80,62 @@ means.summary round: 2
 
 ```
 
+### `FastStats::Mean`
 
-### `FastStats::Means`
-
-Collect means for multiple metrics:
+Build up the arithmetic and geometric means for a metric.
 
 ### Initialize
 
 ```ruby
-means = FastStats::Means.new
+mean = FastStats::Mean.new
 ```
 
 #### Instance Methods
 
-**`add(metric_name, val) ->  value`**<br>
-    Adds the `val` to the `name` mean and returns the `n` (count) for that mean. <br>
+**`add(val) ->  value`**<br>
+    Adds the `val` to the mean and returns the new `n` (count). <br>
     Alias: `<<`.
+
+**`arithmetic -> value`**<br>
+**`arithmetic round: val -> value`**<br>
+    Returns the current arithmetic mean.
+
+**`geometric -> value`**<br>
+**`geometric round: val -> value`**<br>
+    Returns the current geometric mean.
 
 **`summary ->  hsh`** <br>
 **`summary round: value ->  hsh`** <br>
-Returns a Hash of each mean's summary.
+Returns a Hash with the arithmetic and geometric means.
 
 ### Example:
-
-```ruby
-# Say you have some "post_fetcher" that is an enumerator for your posts.
-means = FastStats::Means.new
-
-post_fetcher.each do |post|
-   # do stuff with post
-   means.add "likes", post["like_count"]
-   means.add "comments", post["share_count"]
-end
-
-means.summary
-# =>
-#{
-#   "likes_arithmetic"=>4.888888888888889,
-#   "likes_geometric"=>3.345423581422162,
-#   "comments_arithmetic"=>13.636363636363637,
-#   "comments_geometric"=>7.1824970648723765
-#}
-
-# You can also pass a round: value
-means.summary round: 2
-# =>
-#{
-#   "likes_arithmetic"=>4.89,
-#   "likes_geometric"=>3.35,
-#   "comments_arithmetic"=>13.64,
-#   "comments_geometric"=>7.18
-#}
-
-```
-You can track an individual metric with `FastStats::Mean`:
 
 ```ruby
 mean = FastStats::Mean.new name: "foobar"
 10.times { |i| mean << i }  # or mean.add(i)
 
-puts mean.arithmetic # round: 2
+puts mean.arithmetic
 # => 4.5
-puts mean.geometric # round: 2
+
+puts mean.arithmetic round: 2
+# => 4.5
+
+puts mean.geometric
 # => 3.597297064377001
-puts mean.summary # round: 2
+
+puts mean.geometric round: 3
+# => 3.597
+
+puts mean.summary
 # => {
-#   "foobar_arithmetic"=>4.5,
-#   "foobar_geometric"=>3.597297064377001
+#   "arithmetic"=>4.5,
+#   "geometric"=>3.597297064377001
+#   }
+
+puts mean.summary round: 3
+# => {
+#   "arithmetic"=>4.5,
+#   "geometric"=>3.597
 #   }
 ```
 
