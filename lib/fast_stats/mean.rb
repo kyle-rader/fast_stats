@@ -6,10 +6,9 @@ module FastStats
   class Mean
 
     DEFAULT_ROUND = 15
-    attr_reader :name, :sum, :log_sum, :n
+    attr_reader :sum, :log_sum, :n
 
-    def initialize(name:)
-      @name = name
+    def initialize()
       @sum = 0.0
       @n = 0
       @log_sum = 0.0
@@ -17,7 +16,7 @@ module FastStats
     end
 
     def add(val)
-      throw ArgumentError.new "#add, val must be > 0" if val < 0
+      throw ArgumentError.new "#add, val must be >= 0" if val < 0
       @sum += val
       @log_sum += safe_log(val)
       @n += 1
@@ -37,8 +36,8 @@ module FastStats
 
     def summary(round: DEFAULT_ROUND)
       {
-        "#{name}_arithmetic" => arithmetic(round: round),
-        "#{name}_geometric" => geometric(round: round),
+        "arithmetic" => arithmetic(round: round),
+        "geometric" => geometric(round: round),
       }
     end
 

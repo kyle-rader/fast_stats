@@ -16,15 +16,13 @@ module FastStats
     end
 
     def summary(round: Mean::DEFAULT_ROUND)
-      means.values.reduce({}) do |summary, mean|
-        summary.merge mean.summary round: round
-      end
+      means.transform_values { |m| m.summary round: 2 }
     end
 
     private
 
     def mean_for(name)
-      @means[name] ||= Mean.new name: name
+      @means[name] ||= Mean.new
     end
 
   end

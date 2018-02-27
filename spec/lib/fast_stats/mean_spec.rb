@@ -5,8 +5,8 @@ RSpec.describe FastStats::Mean do
   describe '#initialize' do
     subject { described_class.new }
 
-    it 'requires a name:' do
-      expect { subject }.to raise_error ArgumentError, /missing keyword: name/
+    it 'Can be created' do
+      expect(subject).to be
     end
   end
 
@@ -18,7 +18,7 @@ RSpec.describe FastStats::Mean do
   }
 
   describe '#add / #<<' do
-    subject { described_class.new name: 'foo' }
+    subject { described_class.new }
 
     it { expect(subject).to respond_to :add }
 
@@ -33,12 +33,13 @@ RSpec.describe FastStats::Mean do
     end
 
     it 'raises an error if val is < 0' do
-      expect { subject << -1 }.to raise_error ArgumentError, /val must be > 0/
+      expect { subject << -1 }.to raise_error ArgumentError, /val must be >= 0/
+      expect { subject << 0 }.to_not raise_error ArgumentError
     end
   end
 
   describe '#arithmetic' do
-    subject { described_class.new name: 'foo' }
+    subject { described_class.new }
     let(:values) { [] }
     before { values.each { |val| subject << val } }
 
@@ -74,7 +75,7 @@ RSpec.describe FastStats::Mean do
   end
 
   describe '#geometric' do
-    subject { described_class.new name: 'foo' }
+    subject { described_class.new }
     let(:values) { [] }
     before { values.each { |val| subject << val } }
 
@@ -110,15 +111,15 @@ RSpec.describe FastStats::Mean do
   end
 
   describe '#summary' do
-    subject { described_class.new name: 'foo' }
+    subject { described_class.new }
     let(:values) { numbers_with_zeros }
     before { values.each { |val| subject << val } }
     let(:summary) { subject.summary round: 2 }
 
     it 'Returns a summary with named means' do
       expect(summary).to eq({
-        "foo_arithmetic" => 11.45,
-        "foo_geometric" => 3.53,
+        "arithmetic" => 11.45,
+        "geometric" => 3.53,
       })
     end
   end

@@ -30,12 +30,18 @@ RSpec.describe FastStats::Means do
 
     let(:summary) { subject.summary round: 2 }
     let(:expected_summary) { {
-      "foo_arithmetic" => 5.0,
-      "foo_geometric" => 3.61,
-      "bar_arithmetic" => 14.0,
-      "bar_geometric" => 4.67,
-      "baz_arithmetic" => 11.45,
-      "baz_geometric" => 3.53,
+      "foo" => {
+        "arithmetic" => 5.0,
+        "geometric" => 3.61,
+      },
+      "bar" => {
+        "arithmetic" => 14.0,
+        "geometric" => 4.67,
+      },
+      "baz" => {
+        "arithmetic" => 11.45,
+        "geometric" => 3.53,
+      },
     } }
 
     it 'Returns a summary with named means' do
