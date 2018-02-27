@@ -28,17 +28,33 @@ Or install it yourself as:
 
 ## Usage
 
-The current main usage of `FastStats` is to track and build means while iterating over data sets.
+### `FastStats::Means`
 
-Example: Let's say you want to get some means for social media posts.
+Collect means for multiple metrics:
 
-You can track several metrics with `FastStats::Means`:
+### Initialize
 
 ```ruby
-# Say you have some PostFetcher that is an enumerator for your posts.
+means = FastStats::Means.new
+```
+
+#### Instance Methods
+
+**`add(metric_name, val) ->  value`**<br>
+    Adds the `val` to the `name` mean and returns the `n` (count) for that mean. <br>
+    Alias: `<<`.
+
+**`summary ->  hsh`** <br>
+**`summary round: value ->  hsh`** <br>
+Returns a Hash of each mean's summary.
+
+### Example:
+
+```ruby
+# Say you have some "post_fetcher" that is an enumerator for your posts.
 means = FastStats::Means.new
 
-PostFetcher.each do |post|
+post_fetcher.each do |post|
    # do stuff with post
    means.add "likes", post["like_count"]
    means.add "comments", post["share_count"]
@@ -47,24 +63,77 @@ end
 means.summary
 # =>
 #{
-#   "foo_arithmetic"=>4.888888888888889,
-#   "foo_geometric"=>3.345423581422162,
-#   "bar_arithmetic"=>13.636363636363637,
-#   "bar_geometric"=>7.1824970648723765
+#   "likes_arithmetic"=>4.888888888888889,
+#   "likes_geometric"=>3.345423581422162,
+#   "comments_arithmetic"=>13.636363636363637,
+#   "comments_geometric"=>7.1824970648723765
 #}
 
 # You can also pass a round: value
 means.summary round: 2
 # =>
 #{
-#   "foo_arithmetic"=>4.89,
-#   "foo_geometric"=>3.35,
-#   "bar_arithmetic"=>13.64,
-#   "bar_geometric"=>7.18
+#   "likes_arithmetic"=>4.89,
+#   "likes_geometric"=>3.35,
+#   "comments_arithmetic"=>13.64,
+#   "comments_geometric"=>7.18
 #}
 
 ```
 
+
+### `FastStats::Means`
+
+Collect means for multiple metrics:
+
+### Initialize
+
+```ruby
+means = FastStats::Means.new
+```
+
+#### Instance Methods
+
+**`add(metric_name, val) ->  value`**<br>
+    Adds the `val` to the `name` mean and returns the `n` (count) for that mean. <br>
+    Alias: `<<`.
+
+**`summary ->  hsh`** <br>
+**`summary round: value ->  hsh`** <br>
+Returns a Hash of each mean's summary.
+
+### Example:
+
+```ruby
+# Say you have some "post_fetcher" that is an enumerator for your posts.
+means = FastStats::Means.new
+
+post_fetcher.each do |post|
+   # do stuff with post
+   means.add "likes", post["like_count"]
+   means.add "comments", post["share_count"]
+end
+
+means.summary
+# =>
+#{
+#   "likes_arithmetic"=>4.888888888888889,
+#   "likes_geometric"=>3.345423581422162,
+#   "comments_arithmetic"=>13.636363636363637,
+#   "comments_geometric"=>7.1824970648723765
+#}
+
+# You can also pass a round: value
+means.summary round: 2
+# =>
+#{
+#   "likes_arithmetic"=>4.89,
+#   "likes_geometric"=>3.35,
+#   "comments_arithmetic"=>13.64,
+#   "comments_geometric"=>7.18
+#}
+
+```
 You can track an individual metric with `FastStats::Mean`:
 
 ```ruby
