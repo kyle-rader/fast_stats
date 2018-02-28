@@ -13,7 +13,10 @@ RSpec.describe FastStats::Means do
     it { expect(subject).to respond_to :add }
 
     it 'requires a name and a value' do
-      expect { subject.add }.to raise_error ArgumentError, "wrong number of arguments (given 0, expected 2)"
+      expect { subject.add }.to raise_error(
+        ArgumentError,
+        "wrong number of arguments (given 0, expected 2)"
+      )
     end
 
     it 'can add a value for a named metric' do
@@ -44,7 +47,7 @@ RSpec.describe FastStats::Means do
       },
     } }
 
-    it 'Returns a summary with named means' do
+    it 'returns a summary with named means' do
       expect(summary).to eq expected_summary
     end
   end

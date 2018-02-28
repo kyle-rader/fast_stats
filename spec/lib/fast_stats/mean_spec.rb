@@ -5,7 +5,7 @@ RSpec.describe FastStats::Mean do
   describe '#initialize' do
     subject { described_class.new }
 
-    it 'Can be created' do
+    it 'can be created' do
       expect(subject).to be
     end
   end
@@ -52,12 +52,12 @@ RSpec.describe FastStats::Mean do
     context 'With values' do
       let(:values) { set1 }
 
-      it 'Has expected mean' do
+      it 'has expected mean' do
         expect(mean).to eq 14
       end
     end
 
-    context 'With big numbers' do
+    context 'with big numbers' do
       let(:values) { big_numbers }
 
       it 'has expected mean' do
@@ -65,7 +65,7 @@ RSpec.describe FastStats::Mean do
       end
     end
 
-    context 'With zeros in the numbers' do
+    context 'with zeros in the numbers' do
       let(:values) { numbers_with_zeros }
 
       it 'has expected mean' do
@@ -85,15 +85,15 @@ RSpec.describe FastStats::Mean do
       expect(mean).to eq nil
     end
 
-    context 'With values' do
+    context 'with values' do
       let(:values) { set1 }
 
-      it 'Has expected mean' do
+      it 'has expected mean' do
         expect(mean).to eq 4.67
       end
     end
 
-    context 'With big numbers' do
+    context 'with big numbers' do
       let(:values) { big_numbers }
 
       it 'has expected mean' do
@@ -101,7 +101,7 @@ RSpec.describe FastStats::Mean do
       end
     end
 
-    context 'With zeros in the numbers' do
+    context 'with zeros in the numbers' do
       let(:values) { numbers_with_zeros }
 
       it 'has expected mean' do
@@ -116,7 +116,7 @@ RSpec.describe FastStats::Mean do
     before { values.each { |val| subject << val } }
     let(:summary) { subject.summary round: 2 }
 
-    it 'Returns a summary with named means' do
+    it 'returns a summary with named means' do
       expect(summary).to eq({
         "arithmetic" => 11.45,
         "geometric" => 3.53,
