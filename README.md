@@ -5,10 +5,13 @@
 | [![Build Status](https://travis-ci.org/kyle-rader/fast_stats.svg?branch=master)](https://travis-ci.org/kyle-rader/fast_stats) |
 
 Welcome to FastStats!
-This gem is for computing stats in an efficient manner. Right now it just manages a collection of arithmetic and geometric means to help reduce the [data clump code smell](https://sourcemaking.com/refactoring/smells/data-clumps).
+This gem is for computing stats in an efficient manner.
+It manages a collection of arithmetic and geometric means to help reduce the
+[data clump code smell](https://sourcemaking.com/refactoring/smells/data-clumps).
 
-To experiment with the gem, clone it, run `bundle install` and then `bin/console` for an interactive [pry](http://pryrepl.org/) session (A great Ruby REPL).
-
+To experiment with the gem, clone it, run `bundle install` and then
+`bin/console` for an interactive [pry](http://pryrepl.org/)
+ session (a great Ruby REPL).
 
 ## Installation
 
@@ -28,11 +31,70 @@ Or install it yourself as:
 
 ## Usage
 
+### `FastStats::Mean`
+
+Build up the arithmetic and geometric means for a metric.
+
+#### Initialize
+
+```ruby
+mean = FastStats::Mean.new
+```
+
+#### Instance Methods
+
+**`add(val) ->  value`**<br>
+    Adds the `val` to the mean and returns the new `n` (count). <br>
+    Alias: `<<`.
+
+**`arithmetic -> value`**<br>
+**`arithmetic round: val -> value`**<br>
+    Returns the current arithmetic mean.
+
+**`geometric -> value`**<br>
+**`geometric round: val -> value`**<br>
+    Returns the current geometric mean.
+
+**`summary ->  hsh`** <br>
+**`summary round: value ->  hsh`** <br>
+Returns a Hash with the arithmetic and geometric means.
+
+#### Example
+
+```ruby
+mean = FastStats::Mean.new name: "foobar"
+10.times { |i| mean << i }  # or mean.add(i)
+
+puts mean.arithmetic
+# => 4.5
+
+puts mean.arithmetic round: 2
+# => 4.5
+
+puts mean.geometric
+# => 3.597297064377001
+
+puts mean.geometric round: 3
+# => 3.597
+
+puts mean.summary
+# => {
+#   "arithmetic"=>4.5,
+#   "geometric"=>3.597297064377001
+#   }
+
+puts mean.summary round: 3
+# => {
+#   "arithmetic"=>4.5,
+#   "geometric"=>3.597
+#   }
+```
+
 ### `FastStats::Means`
 
 Collect means for multiple metrics:
 
-### Initialize
+#### Initialize
 
 ```ruby
 means = FastStats::Means.new
@@ -41,13 +103,14 @@ means = FastStats::Means.new
 #### Instance Methods
 
 **`add(metric_name, val) ->  value`**<br>
-    Adds the `val` to the `name` mean and returns the new `n` (count) for that mean. <br>
+Adds the `val` to the `name` mean and returns the new `n` (count) for that
+mean. <br>
 
 **`summary ->  hsh`** <br>
 **`summary round: value ->  hsh`** <br>
 Returns a Hash of each mean's summary.
 
-### Example:
+#### Example
 
 ```ruby
 # Say you have some "post_fetcher" that is an enumerator for your posts.
@@ -80,64 +143,6 @@ means.summary round: 2
 
 ```
 
-### `FastStats::Mean`
-
-Build up the arithmetic and geometric means for a metric.
-
-### Initialize
-
-```ruby
-mean = FastStats::Mean.new
-```
-
-#### Instance Methods
-
-**`add(val) ->  value`**<br>
-    Adds the `val` to the mean and returns the new `n` (count). <br>
-    Alias: `<<`.
-
-**`arithmetic -> value`**<br>
-**`arithmetic round: val -> value`**<br>
-    Returns the current arithmetic mean.
-
-**`geometric -> value`**<br>
-**`geometric round: val -> value`**<br>
-    Returns the current geometric mean.
-
-**`summary ->  hsh`** <br>
-**`summary round: value ->  hsh`** <br>
-Returns a Hash with the arithmetic and geometric means.
-
-### Example:
-
-```ruby
-mean = FastStats::Mean.new name: "foobar"
-10.times { |i| mean << i }  # or mean.add(i)
-
-puts mean.arithmetic
-# => 4.5
-
-puts mean.arithmetic round: 2
-# => 4.5
-
-puts mean.geometric
-# => 3.597297064377001
-
-puts mean.geometric round: 3
-# => 3.597
-
-puts mean.summary
-# => {
-#   "arithmetic"=>4.5,
-#   "geometric"=>3.597297064377001
-#   }
-
-puts mean.summary round: 3
-# => {
-#   "arithmetic"=>4.5,
-#   "geometric"=>3.597
-#   }
-```
 
 ## Change Log
 
@@ -145,18 +150,30 @@ Changes and plans for future changes can be found in [the Change Log](./CHANGE_L
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+ `rake spec` to run the tests. You can also run `bin/console` for an interactive
+ prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
+To release a new version, update the version number in `version.rb`, and then
+run `bundle exec rake release`, which will create a git tag for the version,
+push git commits and tags, and push the `.gem` file
+to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/fast_stats. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/[USERNAME]/fast_stats. This project is intended to be a safe,
+ welcoming space for collaboration, and contributors are expected to adhere to
+ the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the
+[MIT License](https://opensource.org/licenses/MIT).
 
 ## Code of Conduct
 
-Everyone interacting in the FastStats project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/fast_stats/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the FastStats project’s codebases, issue trackers, chat
+rooms and mailing lists is expected to follow the
+[code of conduct](https://github.com/[USERNAME]/fast_stats/blob/master/CODE_OF_CONDUCT.md).
