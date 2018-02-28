@@ -143,10 +143,9 @@ means.summary round: 2
 
 ```
 
-
 ## Change Log
 
-Changes and plans for future changes can be found in [the Change Log](./CHANGE_LOG.md).
+Changes and plans for future changes can be found in [the Change Log](./CHANGELOG.md).
 
 ## Development
 

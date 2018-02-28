@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `FastStats::Means` for building up several arithmetic and geometric means over time.
 - `FastStats::Mean` build up the arithmetic and geometric mean for one metric.
-- Add CHANGE_LOG
+- Add CHANGELOG
 - Add README
 - Setup Travis CI deployment to RubyGems
 
