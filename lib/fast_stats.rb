@@ -1,5 +1,7 @@
+require 'active_support/all'
 require "fast_stats/version"
 
 module FastStats
-  # Your code goes here...
+  require 'fast_stats/mean'
+  require 'fast_stats/means'
 end

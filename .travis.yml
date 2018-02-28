@@ -1,5 +1,13 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.5.0
+- 2.5.0
 before_install: gem install bundler -v 1.16.1
+deploy:
+  provider: rubygems
+  api_key:
+    secure: ZcW3GM+Z+x6G6hdIQDFj9VB16Gts9Wd/35sD12dgMtiytN5JvDzQyf8jXrFI1VNNm8YsW7GgCETBVgbBEFufWT2bPdGTRo73qxt2Fxe8L+cl+OjvQXO/4NcDB9ZHm/bLryDyVJyTRct9aBk+tOPvtuUVX7Yq0T2mVkrWc17zbAYy2NyOYk9AraiuqAmnIWHU9uK1cnKE/HHkBg6O0du2PIW8ko1DbME6pAm4Gof1dxJ6KfYpJPwFkI73sj0efPmsLaBsMGSqf+chMVvL2SvXYcUwMYxEf2SKSwMC3JE88bR9OfPj+Llm8+XwZfrXUaYarOYpfv0jMVTTTAg45FuLLv0mvKWAS4Q0TYfNEtQWJl/75ApIBqwbvPf04T9ufXlJ8zUfu9MmrfLpCzyEk22o981Acd2X39DW9DQ5B06rc/7kinCIZSFVvgjz2dEryDqVToRJLjjpffoeskOFja+M/blMZmIMKiZq0n1zzElI+n5F/Z+PeUKoGYv6fpUcCCE4XfgQxg1xhXhwK3NmxwrxojWdYt8aZzpyTHL8WAvCblrurduxDE+HaMyOWrXTgh68aE4ZOXeTOgaNZobhHrB4wnZTew0KY/HOSfrQdExaz82stE3D0IEvR8aeVMRFn4EvbYcqgV1KC2SqBJ4HTnXs7N047L7GTCUDaAuveTe6yj0=
+  gem: fast_stats
+  on:
+    repo: kyle-rader/fast_stats
+    branch: master
