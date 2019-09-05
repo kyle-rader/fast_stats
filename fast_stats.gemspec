@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
 
   # Runtime Dependencies
-  spec.add_runtime_dependency 'activesupport', '< 5.2', '>= 4.0'
+  spec.add_runtime_dependency 'activesupport', '< 6.1', '>= 4.0'
 
 end

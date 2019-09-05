@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Include the harmonic mean
 - Enable zero handling configuration for geometric mean.
 
+### Changed
+- Update activesupport dependency to include 6.0.*
+
 ## [0.1.0] - 2018-02-22
 ### Added
 - `FastStats::Means` for building up several arithmetic and geometric means over time.
